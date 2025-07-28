@@ -1,0 +1,64 @@
+# VulnerablePiggyBank Smart Contract Audit Report
+
+## Executive Summary
+
+This audit report examines the VulnerablePiggyBank smart contract, comparing the original vulnerable implementation with the remediated version. Multiple critical security vulnerabilities were identified and successfully addressed.
+
+## Contract Overview
+
+**Contract Name:** VulnerablePiggyBank  
+**Solidity Version:** ^0.8.0  
+**License:** MIT  
+**Audit Date:** July 2025
+
+## Critical Vulnerabilities Found & Remediated
+
+### 1. **CRITICAL: Unauthorized Fund Withdrawal**
+- **Issue:** Original `withdraw()` function lacked access control, allowing any user to drain the contract
+- **Risk Level:** Critical
+- **Remediation:** Added `onlyOwner` access control with proper validation
+
+### 2. **HIGH: Missing Deposit Validation**
+- **Issue:** No validation of deposit amounts or ETH value matching
+- **Risk Level:** High  
+- **Remediation:** Added amount validation and ETH value verification
+
+### 3. **MEDIUM: Gas Limit Risk**
+- **Issue:** Used `transfer()` method with 2300 gas limit
+- **Risk Level:** Medium
+- **Remediation:** Replaced with `call()` method for better gas handling
+
+### 4. **LOW: Missing State Tracking**
+- **Issue:** No tracking of individual balances or total deposits
+- **Risk Level:** Low
+- **Remediation:** Added balance mapping and total deposit tracking
+
+## Key Improvements Implemented
+
+✅ **Access Control:** Owner-only withdrawal functionality  
+✅ **Input Validation:** Proper amount and value verification  
+✅ **State Management:** Individual balance tracking with mapping  
+✅ **Gas Optimization:** External function visibility and call() usage  
+✅ **Error Handling:** Comprehensive require statements with clear messages  
+✅ **Immutable Variables:** Gas-efficient owner storage  
+
+## Security Assessment
+
+**Original Contract:** ❌ UNSAFE - Multiple critical vulnerabilities  
+**Audited Contract:** ✅ SECURE - All identified issues remediated
+
+## Recommendations
+
+1. Consider implementing multi-signature wallet for enhanced security
+2. Add emergency pause functionality for critical situations
+3. Implement withdrawal limits or time-based restrictions
+4. Consider adding events for better transaction tracking
+
+## Conclusion
+
+The audited contract successfully addresses all identified security vulnerabilities. The implementation now follows security best practices and is suitable for production deployment.
+
+---
+**Audit Status:** ✅ PASSED  
+**Auditor:** Smart Contract Security Review  
+**Report Version:** 1.0
